@@ -1,3 +1,7 @@
+This program written in Java language and requires java dependencies to run it.
+==================================== INSTRUCTIONS =====================================
+Run MainClass.java under src\main\java\com\mehmetbalci\thoughtworks\assignment
+In default situaltion program take the sample text in /src/main/resources/file as input
 ==================================== INPUT =====================================
 A sample input file will be like this:
 
