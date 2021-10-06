@@ -64,22 +64,86 @@ public class DecimalFromRoman {
             }
         }
         return true;
-    }}
+    }
 
     // check the duplicate numbers for repetations and validate
-    public static boolean validateNoRepeatations
-    {
+    public static boolean validateNoRepeatations(String roman) {
+        char[] result = roman.toCharArray();
+        int i, j;
+        //control i and jth values in array
+        for (i = 0; i < result.length; i++) {
+            for (j = i + 1; j < result.length; j++) {
+                if (result[i] == result[j]) {
+                    // Control if the duplicated value is against rules we got or not
+                    if (nonRepeatingRomanNumbers.contains(result[i])) {
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
     }
 
     // Validate the roman number rules and then convert them to decimal equivalents
-    public static int convertToDecimal{
-        
+    public static int convertToDecimal(String roman) {
+        // to avoid unforseen complications in CASE statements
+        roman = roman.toUpperCase(); 
+        // Validate repeatitions of D, L, V
+        if (validateNoRepeatations(roman)) { 
+            // Validate I, X, C, M rules repeat rules
+            if (validateRepeatations(roman)) { 
+                return (calculateDecimal(roman));//this returns decimal value. chech here while writing this function
+            }
+        }
+        return 0; // Roman system does not have 0. so we need  to handle here
     }
 
     
     //calculated complicated decimal numbers
-    public static int calculateDecimal
-    {
+    public static int calculateDecimal(String romanNumber) {
+        int decimal = 0; //this will store final value of decimal equivalent
+        int prevNumber = 0; //this stores the previous parsed number 
+        //we use this to decide wether to subtract or add the current number
+        // Parse roman string in reverse order to better convertion.
+        for (int x = romanNumber.length() - 1; x >= 0; x--) {
+            char toDecimalValue = romanNumber.charAt(x);
+            // get decimal value from the romanmMapping with trim functions
+            int currentDecimal = romanMapping.get(Character.toString(toDecimalValue)); 
+            //decimal value swith case to do corresponding process
+            switch (toDecimalValue) {
+                case 'I':
+                    decimal = processDecimal(currentDecimal, prevNumber, decimal);
+                    break;
+
+                case 'V':
+                    decimal += currentDecimal; // "V" never be subtracted.
+                    break;
+
+                case 'X':
+                    decimal = processDecimal(currentDecimal, prevNumber, decimal);
+                    break;
+
+                case 'L':
+                    decimal += currentDecimal; // "L" never be subtracted.
+                    break;
+
+                case 'C':
+                    decimal = processDecimal(currentDecimal, prevNumber, decimal);
+                    break;
+
+                case 'D':
+                    decimal += currentDecimal; //"D" never be subtracted.
+                    break;
+
+                case 'M':
+                    decimal = processDecimal(currentDecimal, prevNumber, decimal);
+                    break;
+            }
+            // Save the current processed roman's decimal equivalent.
+            prevNumber = currentDecimal;
+        }
+        //return the final decimal value
+        return decimal;
     }
 
     
