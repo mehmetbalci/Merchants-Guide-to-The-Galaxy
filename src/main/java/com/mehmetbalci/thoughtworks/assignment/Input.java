@@ -139,8 +139,64 @@ public class Input {
     }
 
     //Calculate questions with primitive values
-    public static String
+    public static String answerPrimitiveOnlyQuestion(String line) {
+        String[] words = line.split(" ");
+        // If string has valid primitiveToken
+        for (int i = 3; i < words.length - 1; i++) {
+            // If word in the string not defined in the language.
+            if (!primitiveTokenMapping.containsKey(words[i])) {
+                return "FAIL";
+            }
+        }
+        StringBuilder romanString = new StringBuilder();
+        for (int i = 3; i < words.length - 1; i++) {
+            romanString.append(primitiveTokenMapping.get(words[i]));
+        }
+        // Decimal equivalent for the Roman Number is the answer.
+        int decimal = DecimalFromRoman.convertToDecimal(romanString.toString());
+        if (decimal == 0) {
+            return "FAIL";
+        } else {
+            String output = "";
+            for (int i = 3; i < words.length - 1; i++) {
+                output = output.concat(words[i] + " ");
+            }
+            output = output.concat("is " + decimal);
+            return (output);
+        }
+    }
 
-    //Calculate questions with primitive values 
-    public static String
+    // Calculate questions with primitive values like glob, prok etc..
+    public static String answerDerivedQuestion(String line) {
+        String[] words = line.split(" ");
+        // If string has valid primitive token at 5th to 3rd last
+        for (int i = 4; i < words.length - 2; i++) {
+            // If word in the string not defined in the language. FAIL
+            if (!primitiveTokenMapping.containsKey(words[i])) {
+                return "FAIL";
+            }
+        }
+        // 2nd needs to be derived type
+        if (!derivedTokenMapping.containsKey(words[words.length - 2])) {
+            return "FAIL";
+        }
+        // Calculate decimal equivalent of primitive values and append it to romanstring
+        StringBuilder romanString = new StringBuilder();
+        for (int i = 4; i < words.length - 2; i++) {
+            romanString.append(primitiveTokenMapping.get(words[i]));
+        }
+        int decimal = DecimalFromRoman.convertToDecimal(romanString.toString());
+        if (decimal == 0) {
+            return "FAIL";
+        } else {
+            String output = "";
+            for (int i = 4; i < words.length - 1; i++) {
+                output = output.concat(words[i] + " ");
+            }
+            //Decimal of Roman String times Derived variable equals solution
+            float derivedValue = decimal * derivedTokenMapping.get(words[words.length - 2]);
+            output = output.concat("is " + Math.round(derivedValue) + " Credits");
+            return (output);
+        }
+    }
 }
