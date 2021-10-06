@@ -23,9 +23,27 @@ public class DecimalFromRoman {
     // Rules for the non-repeating roman numbers
     static final List<Character> nonRepeatingRomanNumbers = new ArrayList<>(Arrays.asList('D', 'L', 'V'));
 
+    // process decimal numbers : rule I from X and V etc.
+    public static int processDecimal(int currentDecimal, int previousDecimal, int decimalNumber) {
+        // Implementation of rule I. We can get this subtracted from just V and X. X
+        // could
+        // be subtracted from C and L. C could be subtracted from M and D
+        if (currentDecimal < previousDecimal && previousDecimal <= currentDecimal * 10) {
+            return (decimalNumber - currentDecimal);
+        } else {
+            return (decimalNumber + currentDecimal);
+        }
+    }
+
+
     // Validate the roman number rules and then convert them to decimal equivalents
     public static int convertToDecimal{
         
+    }
+
+    // If X, C, I and M can be repeated three times
+    public static boolean validateRepeatations
+    {
     }
 
     //calculated complicated decimal numbers
@@ -33,18 +51,12 @@ public class DecimalFromRoman {
     {
     }
 
-    //process decimal numbers : rule I from X and V etc.
-    public static int processDecimal
-    {
-    }
+    
 
     // check the duplicate numbers for repetations and validate
     public static boolean validateNoRepeatations
     {
     }
 
-    // If X, C, I and M can be repeated three times
-    public static boolean validateRepeatations
-    {
-    }
+    
 }
