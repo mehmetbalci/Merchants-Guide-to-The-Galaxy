@@ -17,7 +17,7 @@ public class Input {
         BufferedReader bufferedReader;
         //If no file specified, pick the default location from the path 
         FileReader fileReader;
-        //Locate sample input file.
+        //Locate sample input file in the directory
         if (filePath == null) {
             InputStream in = Input.class.getResourceAsStream("/file/sampleInput.txt");
             bufferedReader = new BufferedReader(new InputStreamReader(in));
@@ -26,23 +26,23 @@ public class Input {
             bufferedReader = new BufferedReader(fileReader);
         }
         String line;
-        //Read line by line from file and process the same
+        //Read the file line by line and process it with buffer reader
         while ((line = bufferedReader.readLine()) != null) {
             // Classify lines into four types and process accordingly.
             // "ASSIGN PRIMITIVE" , "ASSIGN DERIVED", "QUESTION PRIMITIVE", "QUESTION DERIVED", "FAILURE"- type cannot be determined
             String answerText = "";
             switch (classifyLines(line)) {
                 case "ASSIGN PRIMITIVE":
-                    assignPrimitiveValues(line);                                //Function to assign primitive values
+                    assignPrimitiveValues(line);//dont forget to write this                                //Function to assign primitive values
                     break;
                 case "ASSIGN DERIVED":
-                    demystifyDerivedValues(line);                               //Function to find and assign derived values.
+                    demystifyDerivedValues(line);// dont forget to write this                               //Function to find and assign derived values.
                     break;
                 case "QUESTION PRIMITIVE":
-                    answerText = answerPrimitiveOnlyQuestion(line);             //Function to solve primitve value question
+                    answerText = answerPrimitiveOnlyQuestion(line);// dont forget to write this             //Function to solve primitve value question
                     break;
                 case "QUESTION DERIVED":
-                    answerText = answerDerivedQuestion(line);                   //Function to solve derived value questions                } else {
+                    answerText = answerDerivedQuestion(line);// dont forget to write this                   //Function to solve derived value questions                } else {
                     break;
                 default:
                     answerText = "FAILURE";
