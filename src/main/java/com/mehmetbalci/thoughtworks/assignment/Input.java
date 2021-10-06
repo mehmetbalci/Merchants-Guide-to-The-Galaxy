@@ -95,10 +95,48 @@ public class Input {
     }
 
     // Assign primitive values to its correspondences
-    public static String
+    public static String assignPrimitiveValues(String line) 
+        //split words with spaces
+        String[] words = line.split(" ");
+        //If the string has valid roman numeral then put it to the primitive map
+        if (DecimalFromRoman.romanMapping.containsKey(words[2])) {
+            primitiveTokenMapping.put(words[0], words[2]);
+            return "SUCCESS";
+        }
+        //none of ifs applies return fail
+        return "FAIL";
+    }
 
     // Calculate derived values
-    public static String
+    public static String demystifyDerivedValues(String line) {
+        String[] words = line.split(" ");
+        // If string has valid primitiveToken
+        for (int i = 0; i < words.length - 4; i++) {
+            // If the word is in the string not defined in the language.
+            if (!primitiveTokenMapping.containsKey(words[i])) {
+                return "FAIL";
+            }
+        }
+        // ramon string built
+        StringBuilder romanString = new StringBuilder();
+        //append characters to the romanstring
+        for (int i = 0; i < words.length - 4; i++) 
+        {
+            romanString.append(primitiveTokenMapping.get(words[i]));
+        }
+        int decimal = DecimalFromRoman.convertToDecimal(romanString.toString());
+        if (decimal == 0) 
+        {
+            return "FAIL";
+        } 
+        //success
+        else 
+        {
+            float derivedValue = Float.parseFloat(words[words.length - 2]) / decimal;
+            derivedTokenMapping.put(words[words.length - 4], derivedValue);
+            return "SUCCESS";
+        }
+    }
 
     //Calculate questions with primitive values
     public static String
