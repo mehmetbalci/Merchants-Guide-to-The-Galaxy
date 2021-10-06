@@ -95,7 +95,7 @@ public class Input {
     }
 
     // Assign primitive values to its correspondences
-    public static String assignPrimitiveValues(String line) 
+    public static String assignPrimitiveValues(String line){
         //split words with spaces
         String[] words = line.split(" ");
         //If the string has valid roman numeral then put it to the primitive map
