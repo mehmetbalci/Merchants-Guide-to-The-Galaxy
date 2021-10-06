@@ -94,5 +94,15 @@ public class Input {
         return "FAILURE";
     }
 
+    // Assign primitive values to its correspondences
+    public static String
 
+    // Calculate derived values
+    public static String
+
+    //Calculate questions with primitive values
+    public static String
+
+    //Calculate questions with primitive values 
+    public static String
 }
